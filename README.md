@@ -41,8 +41,6 @@ Cada carta de ritual inclui:
 
 ## 🚀 Como Usar
 
-Acesse: 
-
 ### Criando um Ritual
 
 1. Clique no botão **+** no canto inferior direito
@@ -91,22 +89,14 @@ Os dados são salvos automaticamente no localStorage do navegador. Isso signific
 - ⚠️ Os dados são específicos por navegador/dispositivo
 - ⚠️ Limpar dados do navegador apagará seus rituais
 
-## 🎨 Elementos Disponíveis
-
-- Sangue
-- Morte
-- Conhecimento
-- Energia
-- Medo
-
 ## 📖 Referências de Imagens
 
-- Absorver
-- Acelerar
-- Aprisionar
-- Criar
-- Libertar
-- Transformar
+- Absorver ![Absorver](/public/images/presets/absover.png)
+- Acelerar ![Acelerar](/public/images/presets/acelerar.png)
+- Aprisionar ![Aprisionar](/public/images/presets/aprisionar.png)
+- Criar ![Criar](/public/images/presets/criar.png)
+- Libertar ![Libertar](/public/images/presets/libertar.png)
+- Transformar ![Transformar](/public/images/presets/transformar.png)
 
 ## 🤝 Contribuindo
 
