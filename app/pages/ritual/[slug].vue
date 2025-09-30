@@ -99,7 +99,7 @@ const filteredStats = computed(() => {
       </li>
     </ul>
     <p class="grow">{{ card.description }}</p>
-    <div v-if="card.discente" class="flex items-center justify-between">
+    <div v-if="card.discente.description" class="flex items-center justify-between">
       <div>
         <h3 class="text-lg font-bold text-muted-foreground">Discente</h3>
         <p>{{ card.discente.description }}</p>
@@ -107,7 +107,7 @@ const filteredStats = computed(() => {
       </div>
       <span class="text-xl font-semibold">+{{ card.discente.custoPE }}PE</span>
     </div>
-    <div v-if="card.verdadeira" class="flex items-center justify-between">
+    <div v-if="card.verdadeira.description" class="flex items-center justify-between">
       <div>
         <h3 class="text-lg font-bold text-muted-foreground">Verdadeira</h3>
         <p>{{ card.verdadeira.description }}</p>
