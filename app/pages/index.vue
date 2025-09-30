@@ -30,16 +30,23 @@ onMounted(() => {
 <template>
   <Search v-model="searchQuery" />
 
-  <ul class="grid gap-2 grid-cols-2 md:grid-cols-4 xl:grid-cols-5">
+  <ul class="grid gap-2 grid-cols-2 md:grid-cols-3">
     <NuxtLink
       :to="`/ritual/${card.name}`"
       v-for="(card, i) in filteredCards"
       :key="i"
-      class="p-2 bg-card border aspect-square"
+      class="p-2 bg-card flex flex-col items-center border"
     >
-      <NuxtImg :src="card.reference.image" :alt="card.reference.image" />
-      <h2 class="text-lg font-bold">{{ card.name }}</h2>
-      <small class="text-muted-foreground">{{ card.circle }}ª Circulo</small>
+      <NuxtImg
+        v-if="card.element"
+        :src="`/images/elements/${card.element.toLocaleLowerCase()}.png`"
+        :alt="card.element"
+      />
+      <NuxtImg v-else :src="card.reference.image" :alt="card.reference.title" />
+      <header class="size-full flex flex-col">
+        <h2 class="font-bold flex-1">{{ card.name }}</h2>
+        <small class="text-muted-foreground">{{ card.circle }}ª Circulo</small>
+      </header>
     </NuxtLink>
   </ul>
 

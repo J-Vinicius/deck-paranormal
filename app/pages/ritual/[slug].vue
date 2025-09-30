@@ -72,6 +72,7 @@ const filteredStats = computed(() => {
         <small class="text-muted-foreground">{{ card.circle }}ª Cirulo</small>
       </div>
       <NuxtImg
+        v-if="card.element"
         :src="`/images/elements/${card.element.toLocaleLowerCase()}.png`"
         :alt="card.element"
         class="size-14"
