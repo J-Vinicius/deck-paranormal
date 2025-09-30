@@ -72,8 +72,8 @@ const filteredStats = computed(() => {
         <small class="text-muted-foreground">{{ card.circle }}ª Cirulo</small>
       </div>
       <NuxtImg
-        :src="card.reference.image"
-        :alt="card.reference.image"
+        :src="`/images/elements/${card.element.toLocaleLowerCase()}.png`"
+        :alt="card.element"
         class="size-14"
       />
     </header>
@@ -98,7 +98,7 @@ const filteredStats = computed(() => {
       </li>
     </ul>
     <p class="grow">{{ card.description }}</p>
-    <div class="flex items-center justify-between">
+    <div v-if="card.discente" class="flex items-center justify-between">
       <div>
         <h3 class="text-lg font-bold text-muted-foreground">Discente</h3>
         <p>{{ card.discente.description }}</p>
@@ -106,7 +106,7 @@ const filteredStats = computed(() => {
       </div>
       <span class="text-xl font-semibold">+{{ card.discente.custoPE }}PE</span>
     </div>
-    <div class="flex items-center justify-between">
+    <div v-if="card.verdadeira" class="flex items-center justify-between">
       <div>
         <h3 class="text-lg font-bold text-muted-foreground">Verdadeira</h3>
         <p>{{ card.verdadeira.description }}</p>
