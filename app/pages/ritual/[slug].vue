@@ -3,6 +3,8 @@ import { useHead } from "#imports";
 import { computed, onMounted } from "vue";
 import { useCardStore } from "~/stores/cards";
 import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
+const router = useRouter();
 import {
   ArrowLeft,
   Circle,
@@ -11,13 +13,16 @@ import {
   Move,
   Shield,
   Target,
+  Trash,
 } from "lucide-vue-next";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "~/components/ui/tooltip";
+} from "@/components/ui/tooltip";
+import type { RitualCard } from "@/shared/types";
+import { Button } from "@/components/ui/button";
 
 const route = useRoute();
 const slug = route.params.slug;
@@ -57,13 +62,21 @@ const filteredStats = computed(() => {
     return value !== undefined && value !== null && value !== "";
   });
 });
+
+const handleDelete = () => {
+  cardStore.deleteCardByName(card.value?.name);
+  router.push("/");
+};
 </script>
 
 <template>
-  <div class="my-2">
+  <div class="flex items-center justify-between mb-2">
     <NuxtLink to="/">
       <ArrowLeft />
     </NuxtLink>
+    <Button variant="destructive" size="icon" @click="handleDelete()">
+      <Trash />
+    </Button>
   </div>
   <div v-if="card" class="flex flex-col gap-4">
     <header class="py-2 flex justify-between">
@@ -99,7 +112,10 @@ const filteredStats = computed(() => {
       </li>
     </ul>
     <p class="grow">{{ card.description }}</p>
-    <div v-if="card.discente.description" class="flex items-center justify-between">
+    <div
+      v-if="card.discente.description"
+      class="flex items-center justify-between"
+    >
       <div>
         <h3 class="text-lg font-bold text-muted-foreground">Discente</h3>
         <p>{{ card.discente.description }}</p>
@@ -107,7 +123,10 @@ const filteredStats = computed(() => {
       </div>
       <span class="text-xl font-semibold">+{{ card.discente.custoPE }}PE</span>
     </div>
-    <div v-if="card.verdadeira.description" class="flex items-center justify-between">
+    <div
+      v-if="card.verdadeira.description"
+      class="flex items-center justify-between"
+    >
       <div>
         <h3 class="text-lg font-bold text-muted-foreground">Verdadeira</h3>
         <p>{{ card.verdadeira.description }}</p>

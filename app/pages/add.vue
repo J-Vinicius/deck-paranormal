@@ -33,6 +33,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "~/components/ui/label";
 import { useCardStore } from "~/stores/cards";
 import { toast } from "vue-sonner";
+import { ArrowLeft, BrushCleaning, Check } from "lucide-vue-next";
 
 const stats = [
   { title: "Execução", list: actions, key: "execution" as const },
@@ -78,86 +79,39 @@ function onSubmit() {
 function resetCard() {
   Object.assign(card, initialCard); // sobrescreve os valores
 }
-
-const references = [
-  {
-    title: "Absorver",
-    image: "/images/presets/absover.png",
-  },
-  {
-    title: "Acelerar",
-    image: "/images/presets/acelerar.png",
-  },
-  {
-    title: "Aprisionar",
-    image: "/images/presets/aprisionar.png",
-  },
-  {
-    title: "Criar",
-    image: "/images/presets/criar.png",
-  },
-  {
-    title: "Libertar",
-    image: "/images/presets/libertar.png",
-  },
-  {
-    title: "Transformar",
-    image: "/images/presets/transformar.png",
-  },
-];
 </script>
 
 <template>
   <h2 class="text-xl font-bold mb-4">Nova Carta</h2>
   <form class="space-y-2" @submit="onSubmit">
     <FormField name="New Card" v-slot="{ componentField }">
-      <div class="relative">
-        <NuxtImg
-          :src="card.reference.image"
-          :alt="card.reference.title"
-          class="place-self-center max-w-xs"
-        />
-      </div>
       <div class="sm:flex flex-row justify-between gap-2">
-        <Item label="Referência Imagem">
-          <Select v-model="card.reference" :default-value="references[1]">
-            <SelectTrigger class="w-full">
-              <SelectValue :placeholder="`Selecione a referência`">
-                <template #default="{ selected }: any">
-                  <span v-if="selected">
-                    <NuxtImg
-                      :src="selected.image"
-                      :alt="selected.title"
-                      class="size-4 inline"
-                    />
-                    {{ selected.title }}
-                  </span>
-                </template>
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem
-                  v-for="reference in references"
-                  :key="reference.title"
-                  :value="reference"
-                >
-                  <NuxtImg
-                    :src="reference.image"
-                    :alt="reference.title"
-                    class="size-6"
-                  />
-                  {{ reference.title }}
-                </SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+        <Item label="Nome do Ritual">
+          <Input
+            v-model="card.name"
+            placeholder="Ritual"
+            v-bind="componentField"
+          />
         </Item>
-
+        <Item label="Circulo">
+          <NumberField
+            v-model="card.circle"
+            id="circle"
+            :default-value="1"
+            :min="1"
+            :max="4"
+          >
+            <NumberFieldContent>
+              <NumberFieldDecrement />
+              <NumberFieldInput />
+              <NumberFieldIncrement />
+            </NumberFieldContent>
+          </NumberField>
+        </Item>
         <Item label="Elemento">
           <Select v-model="card.element" :default-value="elements[1]">
             <SelectTrigger class="w-full">
-              <SelectValue :placeholder="`Selecione a referência`">
+              <SelectValue :placeholder="`Selecione o elemento`">
                 <template #default="{ selected }: any">
                   <span v-if="selected">
                     <NuxtImg
@@ -187,30 +141,6 @@ const references = [
               </SelectGroup>
             </SelectContent>
           </Select>
-        </Item>
-      </div>
-      <div class="sm:flex flex-row justify-between gap-2">
-        <Item label="Nome do Ritual">
-          <Input
-            v-model="card.name"
-            placeholder="Ritual"
-            v-bind="componentField"
-          />
-        </Item>
-        <Item label="Circulo">
-          <NumberField
-            v-model="card.circle"
-            id="circle"
-            :default-value="1"
-            :min="1"
-            :max="4"
-          >
-            <NumberFieldContent>
-              <NumberFieldDecrement />
-              <NumberFieldInput />
-              <NumberFieldIncrement />
-            </NumberFieldContent>
-          </NumberField>
         </Item>
       </div>
       <ul class="sm:grid sm:grid-cols-3 md:grid-cols-6 gap-2">
@@ -250,7 +180,7 @@ const references = [
       <div class="sm:flex gap-2">
         <Item label="Discente">
           <Textarea
-            placeholder="Descrição de Forma Avançada"
+            placeholder="Descrição de Forma Discente"
             v-model="card.discente.description"
           />
           <NumberField
@@ -275,7 +205,7 @@ const references = [
         </Item>
         <Item label="Verdadeira">
           <Textarea
-            placeholder="Descrição de Forma Avançada"
+            placeholder="Descrição de Forma Verdadeira"
             v-model="card.verdadeira.description"
           />
           <NumberField
@@ -308,13 +238,23 @@ const references = [
     </FormField>
     <div class="flex justify-between">
       <Button
-        @click.prevent="resetCard"
+        @click.prevent="router.push('/')"
         variant="outline"
         class="place-self-end"
       >
+        <ArrowLeft />
+        Voltar
+      </Button>
+      <Button
+        @click.prevent="resetCard"
+        variant="destructive"
+        class="place-self-end"
+      >
+        <BrushCleaning />
         Limpar
       </Button>
       <Button type="submit" @click.prevent="onSubmit" class="place-self-end">
+        <Check />
         Confirmar
       </Button>
     </div>
