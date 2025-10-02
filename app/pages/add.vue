@@ -30,7 +30,8 @@ import {
 } from "@/shared/constants";
 import { Item } from "@/components/form";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "~/components/ui/label";
+import { Toaster } from "@/components/ui/sonner";
+import { Label } from "@/components/ui/label";
 import { useCardStore } from "~/stores/cards";
 import { toast } from "vue-sonner";
 import { ArrowLeft, BrushCleaning, Check } from "lucide-vue-next";
@@ -111,11 +112,11 @@ function resetCard() {
         <Item label="Elemento">
           <Select v-model="card.element" :default-value="elements[1]">
             <SelectTrigger class="w-full">
-              <SelectValue :placeholder="`Selecione o elemento`">
+              <SelectValue placeholder="Selecione o elemento">
                 <template #default="{ selected }: any">
                   <span v-if="selected">
                     <NuxtImg
-                      :src="`/images/elements/${selected.toLocaleLowerCase()}.png`"
+                      :src="`/images/elements/${selected}.png`"
                       :alt="selected"
                       class="size-4 inline"
                     />
@@ -259,4 +260,5 @@ function resetCard() {
       </Button>
     </div>
   </form>
+  <Toaster />
 </template>
