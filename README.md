@@ -45,7 +45,6 @@ Cada carta de ritual inclui:
 
 1. Clique no botão **+** no canto inferior direito
 2. Preencha os campos do formulário:
-   - Selecione uma imagem de referência
    - Escolha o elemento
    - Defina o nome e círculo
    - Configure as estatísticas (execução, alcance, etc)
@@ -88,15 +87,6 @@ Os dados são salvos automaticamente no localStorage do navegador. Isso signific
 - ✅ Funciona offline após o primeiro acesso
 - ⚠️ Os dados são específicos por navegador/dispositivo
 - ⚠️ Limpar dados do navegador apagará seus rituais
-
-## 📖 Referências de Imagens
-
-- Absorver ![Absorver](/public/images/presets/absover.png)
-- Acelerar ![Acelerar](/public/images/presets/acelerar.png)
-- Aprisionar ![Aprisionar](/public/images/presets/aprisionar.png)
-- Criar ![Criar](/public/images/presets/criar.png)
-- Libertar ![Libertar](/public/images/presets/libertar.png)
-- Transformar ![Transformar](/public/images/presets/transformar.png)
 
 ## 🤝 Contribuindo
 
