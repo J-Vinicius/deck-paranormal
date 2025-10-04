@@ -35,13 +35,40 @@ import { Label } from "@/components/ui/label";
 import { useCardStore } from "~/stores/cards";
 import { toast } from "vue-sonner";
 import { ArrowLeft, BrushCleaning, Check } from "lucide-vue-next";
+import TableContent from "~/components/TableContent.vue";
+import { elementsInfo } from "~/shared/info";
 
 const stats = [
-  { title: "Execução", list: actions, key: "execution" as const },
-  { title: "Alcance", list: ranges, key: "range" as const },
-  { title: "Área", list: areas, key: "area" as const },
-  { title: "Duração", list: durations, key: "duration" as const },
-  { title: "Resistência", list: resistances, key: "resistance" as const },
+  {
+    title: "Execução",
+    list: actions,
+    info: "A ação necessária para lançar o ritual. Para rituais com execução de ação livre, apenas um pode ser lançado por rodada. Isso inclui rituais afetados por habilidades que reduzem seu tempo de execução. No caso de rituais com execução maior do que uma ação completa, você fica desprevenido enquanto estiver conjurando o ritual.",
+    key: "execution" as const,
+  },
+  {
+    title: "Alcance",
+    list: ranges,
+    info: "A distância máxima a partir do conjurador que o ritual alcança. Apesar disso, caso alguma parte da área ou efeito do ritual esteja além do alcance, a área é afetada normalmente.",
+    key: "range" as const,
+  },
+  {
+    title: "Área",
+    list: areas,
+    info: "O ritual afeta uma área. Você decide um ponto que possa perceber a partir do qual o ritual tem início, mas não controla quais seres ou objetos serão afetados — qualquer coisa dentro da área estará sujeita aos efeitos (incluindo você). De acordo com o mestre, você pode lançar um ritual numa área que não possa perceber com um teste de Ocultismo (DT 20 + custo em PE do ritual).",
+    key: "area" as const,
+  },
+  {
+    title: "Duração",
+    list: durations,
+    info: "A duração indica por quanto tempo o ritual mantém seu efeito. Quando ele termina, a manifestação do Outro Lado se dissipa, e o ritual acaba.",
+    key: "duration" as const,
+  },
+  {
+    title: "Resistência",
+    list: resistances,
+    info: "A maioria dos rituais prejudiciais permite que seus alvos façam um teste de resistência para evitar o efeito ou parte dele. O tipo de teste (Fortitude, Reflexos ou Vontade) e a maneira como ele altera o efeito são descritos no texto. Rituais que não permitem testes de resistência não incluem este trecho.",
+    key: "resistance" as const,
+  },
 ];
 
 const cardStore = useCardStore();
@@ -80,6 +107,16 @@ function onSubmit() {
 function resetCard() {
   Object.assign(card, initialCard); // sobrescreve os valores
 }
+
+const infoCircle = {
+  heads: ["Círculo", "Custo"],
+  rows: [
+    ["1º", "1 PE"],
+    ["2º", "3 PE"],
+    ["3º", "6 PE"],
+    ["4º", "10 PE"],
+  ],
+};
 </script>
 
 <template>
@@ -94,7 +131,11 @@ function resetCard() {
             v-bind="componentField"
           />
         </Item>
-        <Item label="Circulo">
+        <Item label="Circulo" :infoShow="true">
+          <template #info>
+            <h2>Custo de Rituais</h2>
+            <TableContent :heads="infoCircle.heads" :rows="infoCircle.rows" />
+          </template>
           <NumberField
             v-model="card.circle"
             id="circle"
@@ -109,7 +150,23 @@ function resetCard() {
             </NumberFieldContent>
           </NumberField>
         </Item>
-        <Item label="Elemento">
+        <Item label="Elementos" :infoShow="true">
+          <template #info>
+            <span
+              v-for="element in elementsInfo"
+              :key="element.name"
+              :value="element"
+              class="flex items-start gap-1"
+            >
+              <NuxtImg
+                :src="`/images/elements/${element.name.toLocaleLowerCase()}.png`"
+                :alt="element.name"
+                class="size-6"
+              />
+
+              <p>{{ element.name }}: {{ element.info }}</p>
+            </span>
+          </template>
           <Select v-model="card.element" :default-value="elements[1]">
             <SelectTrigger class="w-full">
               <SelectValue placeholder="Selecione o elemento">
@@ -150,7 +207,11 @@ function resetCard() {
           :key="stat.title"
           :label="stat.title"
           class="w-full"
+          :infoShow="true"
         >
+          <template #info>
+            {{ stat.info }}
+          </template>
           <Select v-model="card[stat.key]">
             <SelectTrigger class="w-full">
               <SelectValue :placeholder="`${stat.title}`" />
