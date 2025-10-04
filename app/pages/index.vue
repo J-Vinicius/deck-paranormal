@@ -37,11 +37,10 @@ function updateOpen(value: boolean) {
 <template>
   <client-only>
     <ResponsiveDialogDrawer
-      :open="open"
-      @update:open="updateOpen"
+      v-model:isOpen="open"
       title="Aviso"
       desc="Bem-vindo!"
-      styled="text-foreground size-10 absolute bottom-1 left-1 p-2 bg-card rounded-full"
+      styled="hidden"
     >
       <p>
         Este é um projeto de fã não oficial para Ordem Paranormal. Todos os

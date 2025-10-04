@@ -30,6 +30,8 @@ const isDesktop = useMediaQuery("(min-width: 768px)");
 
 const isOpen = ref(false);
 
+const open = defineModel<boolean>("isOpen");
+
 defineProps<{
     title: string;
     desc?: string | "";
@@ -46,7 +48,7 @@ defineProps<{
       <Info :class="cn('size-4 ml-auto text-muted-foreground', styled)" />
   </UseTrigger>
 
-  <Dialog v-if="isDesktop" v-model:open="isOpen">
+  <Dialog v-if="isDesktop" v-model:open="open">
     <DialogTrigger as-child>
       <Trigger />
     </DialogTrigger>
@@ -61,7 +63,7 @@ defineProps<{
     </DialogContent>
   </Dialog>
 
-  <Drawer v-else v-model:open="isOpen">
+  <Drawer v-else v-model:open="open">
     <DrawerTrigger as-child>
       <Trigger />
     </DrawerTrigger>

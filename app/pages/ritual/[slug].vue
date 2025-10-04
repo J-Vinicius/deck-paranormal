@@ -74,7 +74,7 @@ const handleDelete = () => {
     <NuxtLink to="/">
       <ArrowLeft />
     </NuxtLink>
-    <Button variant="destructive" size="icon" @click="handleDelete()">
+    <Button variant="ghost" size="icon" @click="handleDelete()">
       <Trash />
     </Button>
   </div>
