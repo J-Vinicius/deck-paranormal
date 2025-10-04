@@ -21,6 +21,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Info } from "lucide-vue-next";
+import { cn } from "~/lib/utils";
 
 // Reuse `form` section
 const [UseTemplate, Content] = createReusableTemplate();
@@ -32,6 +33,7 @@ const isOpen = ref(false);
 defineProps<{
     title: string;
     desc?: string | "";
+    styled?: string;
 }>()
 </script>
 
@@ -41,7 +43,7 @@ defineProps<{
   </UseTemplate>
 
   <UseTrigger>
-      <Info class="size-4 ml-auto text-muted-foreground" />
+      <Info :class="cn('size-4 ml-auto text-muted-foreground', styled)" />
   </UseTrigger>
 
   <Dialog v-if="isDesktop" v-model:open="isOpen">
